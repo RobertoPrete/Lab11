@@ -1,4 +1,5 @@
 from database.DB_connect import DBConnect
+from model.product import Product
 
 
 class DAO:
@@ -31,6 +32,35 @@ class DAO:
         cursor.execute(query)
         for row in cursor:
             result.append(row["year"])
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getAllProducts():
+        conn = DBConnect.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        result = []
+        query = """select *
+                    from go_products gp """
+        cursor.execute(query)
+        for row in cursor:
+            result.append(Product(**row))
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getAllNodes(color):
+        conn = DBConnect.get_connection()
+        cursor = conn.cursor(dictionary=True)
+        result = []
+        query = """select *
+                    from go_products gp 
+                    where gp.Product_color = %s """
+        cursor.execute(query, (color, ))
+        for row in cursor:
+            result.append(Product(**row))
         cursor.close()
         conn.close()
         return result

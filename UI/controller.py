@@ -25,9 +25,11 @@ class Controller:
 
     def readYear(self, e):
         self._year = e.control.value
+        self._model.setYear(self._year)
 
     def readColor(self, e):
         self._color = e.control.value
+        self._model.setColor(self._color)
 
     def handle_graph(self, e):
         pass
