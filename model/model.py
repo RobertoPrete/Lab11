@@ -33,6 +33,7 @@ class Model:
         self._graph.clear()
         self._nodes = DAO.getAllNodes(self._selectedColor)
         self._graph.add_nodes_from(self._nodes)
+        # ricavare gli archi e aggiungerli
 
     def graphDetails(self):
         return self._graph.number_of_nodes(), self._graph.number_of_edges()

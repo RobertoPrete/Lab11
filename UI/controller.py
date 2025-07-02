@@ -32,7 +32,13 @@ class Controller:
         self._model.setColor(self._color)
 
     def handle_graph(self, e):
-        pass
+        self._view.txtOut.controls.clear()
+        numero_vertici, numero_archi = self._model.graphDetails()
+        self._view.graphOut.controls.append(ft.Text(f"Numero di vertici: {numero_vertici} Numero di archi: {numero_archi}"))
+        # stampare i tre archi di peso maggiore
+        # stampare i nodi presenti in più di uno dei tre archi
+
+        self._view.update_page()
 
 
     def fillDDProduct(self):
