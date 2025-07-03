@@ -48,3 +48,7 @@ class Model:
     def graphDetails(self):
         return self._graph.number_of_nodes(), self._graph.number_of_edges()
 
+    def getArchi(self):
+        return self._graph.edges(data=True)
+
+

@@ -37,6 +37,10 @@ class Controller:
         numero_vertici, numero_archi = self._model.graphDetails()
         self._view.txtOut.controls.append(ft.Text(f"Numero di vertici: {numero_vertici} Numero di archi: {numero_archi}"))
         # stampare i tre archi di peso maggiore
+        archi = self._model.getArchi()
+        archiPesoMaggiore = sorted(archi, key=lambda p: p[2]["weight"], reverse=True)
+        for i in range(3):
+            self._view.txtOut.controls.append(ft.Text(f"Arco da {archiPesoMaggiore[i][0]} a {archiPesoMaggiore[i][1]}, peso={archiPesoMaggiore[i][2]["weight"]}"))
         # stampare i nodi presenti in più di uno dei tre archi
 
         self._view.update_page()
