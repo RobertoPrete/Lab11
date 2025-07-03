@@ -33,8 +33,9 @@ class Controller:
 
     def handle_graph(self, e):
         self._view.txtOut.controls.clear()
+        self._model.buildGraph()
         numero_vertici, numero_archi = self._model.graphDetails()
-        self._view.graphOut.controls.append(ft.Text(f"Numero di vertici: {numero_vertici} Numero di archi: {numero_archi}"))
+        self._view.txtOut.controls.append(ft.Text(f"Numero di vertici: {numero_vertici} Numero di archi: {numero_archi}"))
         # stampare i tre archi di peso maggiore
         # stampare i nodi presenti in più di uno dei tre archi
 

@@ -16,6 +16,7 @@ class Model:
             self._idMapProducts[product.Product_number] = product
 
         self._nodes = None
+        self._edges = None
 
     def getColors(self):
         return self._colors
@@ -34,6 +35,15 @@ class Model:
         self._nodes = DAO.getAllNodes(self._selectedColor)
         self._graph.add_nodes_from(self._nodes)
         # ricavare gli archi e aggiungerli
+        self._edges = DAO.getAllEdges(self._selectedColor, self._selectedYear, self._idMapProducts)
+        for edge in self._edges:
+            u = edge.p1
+            v = edge.p2
+            if self._graph.has_node(u) and self._graph.has_node(v):
+                if self._graph.has_edge(u, v):
+                    self._graph[u][v]['weight'] += 1
+                else:
+                    self._graph.add_edge(u, v, weight=1)
 
     def graphDetails(self):
         return self._graph.number_of_nodes(), self._graph.number_of_edges()
