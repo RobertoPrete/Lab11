@@ -71,7 +71,7 @@ class DAO:
         conn = DBConnect.get_connection()
         cursor = conn.cursor(dictionary=True)
         result = []
-        query = """select t1.Retailer_code, t1.Product_number as p1, t2.Product_number as p2, t2.`Date`
+        query = """select t1.Retailer_code, t1.Product_number as p1, t2.Product_number as p2, t1.`Date`
                     from  (select gds.*
 		                    from go_daily_sales gds, go_retailers gr, go_products gp 
 		                    where gds.Retailer_code = gr.Retailer_code and gds.Product_number = gp.Product_number
@@ -84,8 +84,9 @@ class DAO:
 			                    and gp.Product_color = %s
 			                    and YEAR(`Date` ) = %s
 			                    order by gds.Retailer_code, gds.Product_number) as t2
-                    on t1.Retailer_code   = t2.Retailer_code and t1.`Date` = t2.`Date`  
-                    where t1.`Date` = t2.`Date` and t1.Product_number  <t2.Product_number  or t2.Product_number  is null
+                    on t1.Retailer_code=t2.Retailer_code and t1.`Date`=t2.`Date`
+                    where  t1.Product_number<t2.Product_number  or t2.Product_number  is null
+                    group by t1.Retailer_code, t1.Product_number,t2.Product_number, t1.`Date`
                     order by t1.Retailer_code, t1.Product_number, t1.`Date`, t2.Retailer_code, t2.Product_number"""
         cursor.execute(query, (color, year, color, year, ))
         for row in cursor:

@@ -35,14 +35,22 @@ class Model:
         self._nodes = DAO.getAllNodes(self._selectedColor)
         self._graph.add_nodes_from(self._nodes)
         # ricavare gli archi e aggiungerli
+        # lista_retailer = []
+        # lista_date = []
+        arco_corrente = None
         self._edges = DAO.getAllEdges(self._selectedColor, self._selectedYear, self._idMapProducts)
         for edge in self._edges:
             u = edge.p1
             v = edge.p2
             if self._graph.has_node(u) and self._graph.has_node(v):
                 if self._graph.has_edge(u, v):
-                    self._graph[u][v]['weight'] += 1
+                    # if edge.Date not in lista_date:
+                    if edge != arco_corrente:
+                        self._graph[u][v]['weight'] += 1
                 else:
+                    # lista_retailer.append(edge.Retailer_code)
+                    # lista_date.append(edge.Date)
+                    arco_corrente = edge
                     self._graph.add_edge(u, v, weight=1)
 
     def graphDetails(self):
